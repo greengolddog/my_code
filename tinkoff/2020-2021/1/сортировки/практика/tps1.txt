@@ -1,0 +1,42 @@
+#include <iostream>
+#include <cmath>
+#include <vector>
+#include <algorithm>
+#include <string>
+using namespace std;
+int main() {
+    int n;
+    cin >> n;
+    string str;
+    cin >> str;
+    vector<int> arr(100, 0);
+    // sort(str.begin(), str.end())
+    for (int i = 0; i < n; i++) {
+        arr[str[i] - 'A']++;
+    }
+    char minimum;
+    minimum = ' ';
+    for (int i = 0; i < 100; i++) {
+        char chr = i + 'A';
+        for (int j = 0; j < arr[i] / 2; j++) {
+            cout << chr;
+        }
+        if (minimum == ' ' && arr[i] % 2 == 1) {
+            minimum = chr;
+        }
+    }
+    if (minimum != ' ') {
+        cout << minimum;
+    }
+    for (int i = 99; i >= 0; i--) {
+        char chr = i + 'A';
+        for (int j = 0; j < arr[i] / 2; j++) {
+            cout << chr;
+        }
+    }
+}
+
+
+
+
+

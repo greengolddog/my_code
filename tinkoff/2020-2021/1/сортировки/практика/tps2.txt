@@ -1,0 +1,33 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+using namespace std;
+int main() {
+    int a, m, aa, num, sum;
+    cin >> a >> m;
+    vector<int> arr(a*m, 0);
+    for (int i = 0; i < a*m; i++) {
+        cin >> arr[i];
+    }
+    cin >> aa;
+    vector<int> arr2(aa, 0);
+    for (int i = 0; i < aa; i++) {
+        cin >> arr2[i];
+    }
+    sort(arr2.begin(), arr2.end());
+    sort(arr.begin(), arr.end());
+    reverse(arr.begin(), arr.end());
+    reverse(arr2.begin(), arr2.end());
+    num = 0;
+    sum = 0;
+    for (int i = 0; i < aa; i++) {
+        if (num == a*m) {
+            break;
+        }
+        if (arr2[i] <= arr[num]) {
+            num += 1;
+            sum += 1;
+        }
+    }
+    cout << sum;
+}

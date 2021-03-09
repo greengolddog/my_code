@@ -1,0 +1,30 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+int main() {
+    long long a, b, k, m, x, r, l;
+    cin >> a >> k >> b >> m >> x;
+    l = -1;
+    r = x;
+    while (r - l > 1) {
+        long long mid = (l + r) / 2;
+        int copy_of_x = x;
+        for (int i = 0; i < floor(mid / k); i++) {
+            copy_of_x -= a * (k - 1);
+        }
+        copy_of_x -= mid % k * a;
+        for (int i = 0; i < floor(mid / m); i++) {
+            copy_of_x -= b * (m - 1);
+        }
+        copy_of_x -= mid % m * b;
+        if (0 < copy_of_x) {
+            l = mid;
+        } else {
+            r = mid;
+        }
+    }
+    cout << r;
+}
+
+
+

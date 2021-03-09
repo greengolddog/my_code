@@ -1,0 +1,51 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+int
+main ()
+{
+  int sum, len,z,ss;
+  sum = 0;
+  z = 2;
+  ss = 0;
+  cin >> len;
+  string a;
+//   a = "1166611";
+  a = 'a'*len;
+  for(int i = 0;i < len;i++){
+    cin >> a[i];
+  }
+  if(len > 2){
+    for (int i = 0; i <= len - 3; i++)
+    {
+      ss -= 1;
+      if (ss == 0){
+        break;
+      }
+      if (a[i] == a[i + 1] and a[i] == a[i + 2])
+	  {
+	    ss = 3;
+	    while(a[i] == a[i + z]){
+	      z += 1;
+	      if(i+z>len - 1){
+	        break;
+	      }
+	    }
+	    for (int ii = i; ii <= len - (z + 1); ii++)
+	    {
+	      a[ii] = a[ii + z];
+	    }
+	    len -= z;
+	    sum += z;
+	    i -= 3;
+	    z = 2;
+	  }
+	  if (i < 0){
+	      i = -1;
+	  }
+    }
+  }
+  cout << sum;
+}

@@ -1,0 +1,15 @@
+#include <iostream>
+#include <algorithm>
+#include <cmath>
+using namespace std;
+int main() {
+    doble a,b,n,cb;
+    cin >> a >> b;
+    cb = ceil(b / a);
+    if (a > cb) {
+	cout << "Yes";
+    }
+    else {
+	cout << "No";
+    }
+}

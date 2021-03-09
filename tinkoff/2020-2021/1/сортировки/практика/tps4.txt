@@ -1,0 +1,27 @@
+#include <iostream>
+#include <cmath>
+#include <vector>
+#include <algorithm>
+using namespace std;
+int main() {
+    int n, dll;
+    cin >> n;
+    vector<int> arr(n, 2000000000);
+    for (int i = 0; i < n; i++) {
+        cin >> dll;
+        for (int j = 0; j < dll; j++) {
+            int in,musor;
+            cin >> in >> musor;
+            arr[i] = min(arr[i], in);
+        }
+    }
+    for (int i = 0; i < n; i++) {
+        int sum = 0;
+        for (int j = 0; j < n; j++) {
+            if (arr[i] > arr[j]) {
+                sum++;
+            }
+        }
+        cout << sum << ' ';
+    }
+}

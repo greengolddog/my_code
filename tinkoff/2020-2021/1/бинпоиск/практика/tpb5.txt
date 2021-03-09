@@ -1,0 +1,57 @@
+#include <iostream>
+#include <cmath>
+#include <vector>
+#include <algorithm>
+using namespace std;
+int main() {
+    int a, b, r, r2, l;
+    r = 1;
+    r2 = 1;
+    cin >> b >> a;
+    vector<int> arr(a, 0);
+    vector<int> arr2(a, 0);
+    vector<int> arr3(a, 0);
+    vector<int> arr_ans(a, 0);
+    vector<int> arr_ans_now(a, 0);
+    for (int i = 0; i < a; i++) {
+        cin >> arr[i] >> arr2[i] >> arr3[i];
+        r = max(r, arr[i] + 1);
+        r2 = max(r, arr3[i] + 1);
+    }
+    l = 0;
+    r += r2;
+    r *= b;
+    if (b > 0) {
+        while (r - l > 1) {
+            int mid = (l + r) / 2;
+            int sum = 0;
+            for (int i = 0; i < a; i++) {
+                int sum_now = floor(mid / (arr[i] * arr2[i] + arr3[i])) * arr2[i];
+                int a = floor((mid % (arr[i] * arr2[i] + arr3[i])) / arr[i]);
+                sum_now += min(a, arr2[i]);
+                arr_ans_now[i] = sum_now;
+                sum += sum_now;
+            }
+            if (b > sum) {
+                l = mid;
+            } else {
+                r = mid;
+                for (int i = 0; i < a; i++) {
+                    arr_ans[i] = arr_ans_now[i];
+                }
+            }
+        }
+        cout << r << endl;
+        int sum = b;
+        for (int i = 0; i < a; i++) {
+            cout << min(arr_ans[i], max(0, sum)) << ' ';
+            sum -= arr_ans[i];
+        }
+    } else {
+        cout << 0 << endl;
+        for (int i = 0; i < a; i++) {
+            cout << 0 << ' ';
+        }
+    }
+}
+

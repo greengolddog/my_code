@@ -1,0 +1,48 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+using namespace std;
+int main() {
+    int a, b;
+    cin >> a;
+    vector<int> arr(a, 0);
+    for (int i = 0; i < a; i++) {
+        cin >> arr[i];
+    }
+    sort(arr.begin(), arr.end());
+    cin >> b;
+    vector<int> arr2(b, 0);
+    for (int i = 0; i < b; i++) {
+        cin >> arr2[i];
+    }
+    int l, r, l2, r2;
+    for (int i = 0; i < b; i++) {
+        l = 0;
+        r = a;
+        while (r - l > 1) {
+            int mid = (l + r) / 2;
+            if (arr[mid] <= arr2[i]) {
+                l = mid;
+            } else {
+                r = mid;
+            }
+        }
+        l2 = -1;
+        r2 = a - 1;
+        while (r2 - l2 > 1) {
+            int mid = (l2 + r2) / 2;
+            if (arr[mid] < arr2[i]) {
+                l2 = mid;
+            } else {
+                r2 = mid;
+            }
+        }
+        if (arr[l] == arr2[i]) {
+            cout << l - r2 + 1 << ' ';
+        } else {
+            cout << 0 << ' ';
+        }
+    }
+}
+
+

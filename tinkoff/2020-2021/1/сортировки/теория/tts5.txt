@@ -1,0 +1,20 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+using namespace std;
+int main() {
+    int n, in, maximum;
+    const int shift = 10000;
+    maximum = 0;
+    cin >> n;
+    vector<int> arr(shift * 2, 0);
+    for (int i = 0; i < n; i++) {
+        cin >> in;
+        arr[in + shift]++;
+    }
+    for (int i = 0; i <= shift * 2; i++) {
+        for (int j = 0; j < arr[i]; j++) {
+            cout << i - shift << ' ';
+        }
+    }
+}

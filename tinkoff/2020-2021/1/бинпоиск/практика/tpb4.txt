@@ -1,0 +1,25 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+int main() {
+    long long n, w, h, r, l;
+    cin >> w >> h >> n;
+    l = -1;
+    r = max(h, w) * n;
+    while (r - l > 1) {
+        long long mid = (l + r) / 2;
+        long long sum1 = floor(mid / h);
+        long long sum2 = floor(mid / w);
+        if (min(sum1, sum2) > 0) {
+            if (n / min(sum2, sum1) > max(sum2, sum1)) {
+                l = mid;
+            } else {
+                r = mid;
+            }
+        } else {
+            l = mid;
+        }
+    }
+    cout << r;
+}
+

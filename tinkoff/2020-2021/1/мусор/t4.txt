@@ -1,0 +1,31 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int
+main ()
+{
+  int maximum,pred,length;
+  maximum = 0;
+  cin >> length;
+  vector <int>v (length, 0);
+  for (int i = 0;i<length;i++){
+    cin >> v[i];
+  }
+  for (int i = 0;i<length;i++){
+    pred = v[i];
+    for (int j = i + 1;j<length;j++){
+      if (v[j] > 0){
+        pred = pred ^ v[j];
+      }
+      if (pred > 0 and j - i + 1 > maximum){
+        maximum = j - i + 1;
+      }
+    }
+    if (maximum == length - i - 1){
+      break;
+    }
+  }
+  cout << maximum;
+}

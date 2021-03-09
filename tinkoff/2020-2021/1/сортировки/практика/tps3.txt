@@ -1,0 +1,43 @@
+#include <iostream>
+#include <cmath>
+#include <vector>
+#include <algorithm>
+using namespace std;
+int main() {
+    int minimum, n;
+    cin >> minimum >> n;
+    vector<int> arr(n, 0);
+    for (int i = 0; i < n; i++) {
+        cin >> arr[i];
+    }
+    sort(arr.begin(), arr.end());
+    if (n > 0) {
+        if (arr[n - 1] >= minimum) {
+            int sum = 1;
+            int pred = 0;
+            for (int i = 0; i < n; i++) {
+                if (arr[i] >= minimum) {
+                    pred = i;
+                    break;
+                }
+            }
+            for (int i = pred + 1; i < n; i++) {
+                if (arr[i] >= arr[pred] + 3) {
+                    pred = i;
+                    sum++;
+                }
+            }
+            cout << sum;
+        } else {
+            cout << 0;
+        }
+    } else {
+        cout << 0;
+    }
+}
+
+
+
+
+
+
