@@ -11,13 +11,9 @@ int main() {
     ll n, s, kol = 0, mt = 0;
     double l;
     cin >> n >> l;
-    vector<pair<ll, double>> arr;
+    set<double> arr;
     for (ll i = 0; i < n; i++) {
         cin >> s;
-        arr.push_back({100000000000 - i, n/s});
-    }
-    sort(arr.begin(), arr.end());
-    for (auto i : arr) {
-        cout << i.first << ' ' << i.second << endl;
+	arr.upper_bound(i+l/s);
     }
 }
