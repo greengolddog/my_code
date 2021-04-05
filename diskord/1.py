@@ -133,4 +133,4 @@ async def on_message(message):
   elif msg.startswith('$new_in_last_version'):
     await message.channel.send("you can play tictactoe game!")
 
-client.run("ODI2ODU3OTI1MjkyNTg5MDg3.YGSlcw.ZqhUOX4Ll3o3olDDrkLciAsuiJk")
+client.run("ODI2ODU3OTI1MjkyNTg5MDg3.YGSlcw.iS3ppi5G7oxELTG0bZZmuia5q94")
