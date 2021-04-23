@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1617858127 source:/home/greengolddog/my_code/g/main.c
+	<stdio.h>
+	<stdlib.h>
+	<GL/glx.h>
+	<GL/gl.h>
+	<X11/X.h>
+	<X11/keysym.h>
+
