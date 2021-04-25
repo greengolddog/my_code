@@ -322,8 +322,8 @@ struct circle {
 		if (rou(l.dist(s)) > r) {
 			return {point(nan2, nan2), point(nan2, nan2)};
 		}
-		return {(vct(l.project(s), s)+atan2(sqrt(r*r-abs(l.dist(s))*abs(l.dist(s))), abs(l.dist(s)))).to(r).to_point()+s,
-			(vct(l.project(s), s)+(-atan2(sqrt(r*r-abs(l.dist(s))*abs(l.dist(s))), abs(l.dist(s))))).to(r).to_point()+s};
+		return {l.project(s) + l.to_vct().to(sqrt(r*r-l.dist(s)*l.dist(s))).to_point(),
+			l.project(s) - l.to_vct().to(sqrt(r*r-l.dist(s)*l.dist(s))).to_point()};
 	}
 	friend istream& operator>> (istream& inp, circle& c);
 };
