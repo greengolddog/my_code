@@ -355,6 +355,9 @@ struct triangle {
 		}
 		return angle(b, c, a);
 	}
+	bool point_in(point p) {
+		return get_angle(0).in(p) && get_angle(1).in(p) && get_angle(2).in(p);
+	}
 	angle min_angle() {
 		return min(get_angle(0), min(get_angle(1), get_angle(2)));
 	}
@@ -379,57 +382,75 @@ istream& operator>> (istream& inp, triangle& t) {
 }
 
 struct polygon {
-    vector<point> points;
-    ll len;
-    bool convex = 0;
-    polygon(vector<point> p = vector<point>(0, point())) {
-        points = p;
-        len = points.size();
-        convex = is_convex();
-    }
-    bool is_convex() {
-        if (len > 2) {
-            db sign_fir = sign(triangle(points[len - 1], points[len - 2], points[0]).square());
-	    ll j = len - 1;
-            for (ll i = 1; i < len; i++) {
-                // cout << i << ' ' << sign(vct(points[i-1], points[0])^vct(points[i], points[0])) << ' ' << sign_fir << endl;
-                if (sign(triangle(points[i-1], points[j], points[i]).square()) != sign_fir) {
-                    return false;
-                }
-		j = i - 1;
-            }
-        }
-        return true;
-    }
-    db area() {
-        db a  = 0;
-        ll j = len - 1;
-        for (ll i = 0; i < len; i++) {
-            a += triangle(point(), points[j], points[i]).square();
-            j = i;
-        }
-        return abs(a);
-    }
-    bool point_in(point p) {
-        db a = 0;
-        ll j = len - 1;
-        for (ll i = 0; i < len; i++) {
-            a += vct(points[j], p)%vct(points[i], p);
-            j = i;
-        }
-        return (rou(a) != 0);
-    }
-    friend istream& operator>> (istream& inp, polygon& p);
+    	vector<point> points;
+    	ll len;
+    	bool convex = 0;
+    	polygon(vector<point> p = vector<point>(0, point())) {
+        	points = p;
+        	len = points.size();
+        	convex = is_convex();
+    	}
+    	bool is_convex() {
+        	if (len > 2) {
+            		db sign_fir = sign(triangle(points[len - 1], points[len - 2], points[0]).square());
+	    		ll j = len - 1;
+            		for (ll i = 1; i < len; i++) {
+                       		if (sign(triangle(points[i-1], points[j], points[i]).square()) != sign_fir) {
+                    			return false;
+                		}
+				j = i - 1;
+            		}
+        	}
+        	return true;
+    	}
+    	db area() {
+	    	db a  = 0;
+	    	ll j = len - 1;
+        	for (ll i = 0; i < len; i++) {
+            		a += triangle(point(), points[j], points[i]).square();
+            		j = i;
+        	}
+        	return abs(a);
+    	}
+	bool point_in(point p) {
+	    	if (!convex) {
+        		db a = 0;
+        		ll j = len - 1;
+        		for (ll i = 0; i < len; i++) {
+            			a += vct(points[j], p)%vct(points[i], p);
+            			j = i;
+        		}
+        		return (rou(a) != 0);
+		} else {
+			if (!angle(points[1], points[0], points[len-1]).in(p)) {
+				return false;
+			}
+			ll l = 1, r = len - 1;
+			while (r - l > 1) {
+				ll mid = (r+l)/2;
+				if (angle(points[1], points[0], points[mid]).in(p)) {
+					r = mid;
+				} else {
+					l = mid;
+				}
+			}
+			if (triangle(points[0], points[r], points[r - 1]).point_in(p)) {
+				return true;
+			}
+			return false;
+		}
+	}
+    	friend istream& operator>> (istream& inp, polygon& p);
 };
 
 istream& operator>> (istream& inp, polygon& p) {
-    inp >> p.len;
-    p.points.resize(p.len, point());
-    for (ll i = 0; i < p.len; i++) {
-        inp >> p.points[i];
-    }
-    p.convex = p.is_convex();
-    return inp;
+    	inp >> p.len;
+    	p.points.resize(p.len, point());
+    	for (ll i = 0; i < p.len; i++) {
+        	inp >> p.points[i];
+    	}
+    	p.convex = p.is_convex();
+    	return inp;
 }
 
 istream& operator>> (istream& inp, pair<polygon, point>& p) {
@@ -446,7 +467,14 @@ int main() {
 	ios_base::sync_with_stdio(false);
 	cin.tie(0);
 	cout.tie(0);
-	polygon p;
-	cin >> p;
-	cout << (p.convex ? "YES" : "NO");
+	pair<polygon, point> pa;
+	cin >> pa;
+	polygon p = pa.first;
+	ll m = pa.second.x, k = pa.second.y, stc = 0;
+	for (ll i = 0; i < m; i++) {
+		point po;
+		cin >> po;
+		p.point_in(po) ? stc++ : true;
+	}
+	cout << (stc >= k ? "YES" : "NO");
 }
