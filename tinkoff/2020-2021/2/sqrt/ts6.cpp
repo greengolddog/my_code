@@ -6,83 +6,96 @@ using namespace std;
 
 struct block {
 	vector<ll> arr;
-	ll size;
-	ll min_el = 10000000000000;
-	block(vector<ll> arr = vector<ll>(0, 0)): arr(arr) {
-		size = arr.size();
-		for (ll i = 0; i < size; i++) {
-			min_el = min(min_el, arr[i]);
+	ll minn = 1000000000000, len;
+	block(vector<ll> arra = vector<ll>(0, 0)) {
+		arr = arra;
+		len = arr.size();
+		for (ll i = 0; i < len; i++) {
+			minn = min(minn, arr[i]);
 		}
 	}
-	ll operator[] (ll num) {
-		return arr[num];
-	}
-	ll operator[] (pair<ll, ll> gr) {
-		if ((gr.first == 0) and (gr.second == size)){
-			return min_el;
-		} else {
-			ll min_now = 10000000000000;
-			for (ll i = gr.first; i < gr.second; i++) {
-				min_now = min(min_now, arr[i]);
-			}
-			return min_now;
+	ll get_min(ll a, ll b) {
+		if ((a == 0) && (b == len - 1)) {
+			return minn;
 		}
+		ll min_now = 1000000000000;
+		for (ll i = a; i <= b; i++) {
+			min_now = min(min_now, arr[i]);
+		}
+		return min_now;
 	}
-	void operator+= (ll num) {
-		arr.push_back(num);
-		min_el = min(min_el, num);
+	void add(ll a, ll b) {
+		arr.insert(arr.begin()+a, b);
+		minn = min(minn, b);
+		len++;
 	}
-	void operator+= (pair<ll, ll> num) {
-		arr.insert(arr.begin()+num.second, num.first);
-		min_el = min(min_el, num.first);
+	ll operator[](ll a) {
+		return arr[a];
 	}
 };
 
 struct sqrt_min {
-	vector<block> blocks;
-	ll k = 400;
-	ll stc = 0;
-	sqrt_min(vector<ll> arr = vector<ll>(0, 0)) {
-		blocks = vector<block>(arr.size()/k+1, block());
-		for (ll i = 0; i < arr.size(); i++) {
-			blocks[i/k] += arr[i];
-		}
-	}
-	ll operator[] (pair<ll, ll> lr) {
-		ll nac = 0, ans = 100000000000, l = lr.first, r = lr.second;
-		for (ll i = 0; i < blocks.size(); i++) {
-			if ((nac <= r) && (nac+blocks[i].size > l)) {
-				ans = min(ans, blocks[i][{max(nac, l), min(nac+blocks[i].size, r)}]);
-			}
-			nac += blocks[i].size;
-		}
-		return ans;
-	}
-	void per() {
-		vector<ll> arr(0, 0);
-		for (ll i = 0; i < blocks.size(); i++) {
-			for (ll j = 0; j < blocks[i].size; j++) {
-				arr.push_back(blocks[i][j]);
+	vector<block> arr;
+	ll len = 0, k = 400, stc = 0;
+	sqrt_min(vector<ll> arra = vector<ll>(1, 0)) {
+		vector<ll> bl(0, 0);
+		for (ll i = 0; i < arra.size(); i++) {
+			bl.push_back(arra[i]);
+			if (i % k == k-1) {
+				len++;
+				arr.push_back(block(bl));
+				bl = vector<ll>(0, 0);
 			}
 		}
-		blocks = vector<block>(arr.size()/k+1, block());
-		for (ll i = 0; i < arr.size(); i++) {
-			blocks[i/k] += arr[i];
+		if (bl.size() > 0) {
+			len++;
+			arr.push_back(block(bl));
 		}
-		stc = 0;
 	}
-	void operator+= (pair<ll, ll> num) {
+	void add(ll a, ll b) {
+		for (ll i = 0; i < len; i++) {
+			if ((a < arr[i].len) && (a >= 0)) {
+				arr[i].add(a, b);
+			}
+			a -= arr[i].len;
+		}
 		stc++;
-		ll nac = 0,  mes = num.first, ch = num.second;
-		for (ll i = 0; i < blocks.size(); i++) {
-			if ((nac <= mes) && (nac+blocks[i].size > mes)) {
-				blocks[i] += {ch, mes-nac};
-			}
-			nac += blocks[i].size;
-		}
 		if (stc == k) {
 			per();
+			stc = 0;
 		}
+	}
+	void per() {
+		vector<ll> arra(0, 0);
+		for (ll i = 0; i < len; i++) {
+			for (ll j = 0; j < arr[i].len; j++) {
+				arra.push_back(arr[i][j]);
+			}
+		}
+		len = 0;
+		arr = vector<block>(0, block());
+		vector<ll> bl(0, 0);
+		for (ll i = 0; i < arra.size(); i++) {
+			bl.push_back(arra[i]);
+			if (i % k == k-1) {
+				len++;
+				arr.push_back(block(bl));
+				bl = vector<ll>(0, 0);
+			}
+		}
+		if (bl.size() > 0) {
+			len++;
+			arr.push_back(block(bl));
+		}
+	}
+	ll get_min(ll a, ll b) {
+		ll ans = 1000000000000, z = 0;
+		for (ll i = 0; i < len; i++) {
+			ans = min(ans, arr[i].get_min(max(a, z), min(b, arr[i].len - 1)));
+			a -= arr[i].len;
+			b -= arr[i].len;
+		}
+		return ans;
 	}
 };
 
@@ -90,17 +103,18 @@ int main() {
 	ios_base::sync_with_stdio(false);
 	cin.tie(0);
 	cout.tie(0);
-	sqrt_min s;
 	ll m;
 	cin >> m;
+	sqrt_min s(vector<ll>(1, 0));
 	for (ll i = 0; i < m; i++) {
-		char zap;
-		ll c1, c2;
-		cin >> zap >> c1 >> c2;
-		if (zap == '+') {
-			s += {c1, c2};
+		char com;
+		cin >> com;
+		ll x, y;
+		cin >> x >> y;
+		if (com == '+') {
+			s.add(x, y);
 		} else {
-			cout << s[{c1, c2}] << endl;
+			cout << s.get_min(x - 1, y - 1) << "\n";
 		}
 	}
 }

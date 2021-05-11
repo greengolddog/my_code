@@ -8,6 +8,10 @@ using namespace std;
 
 const db pi = acos(-1);
 
+db rou(db num) {
+	return round(num*10000000000)/10000000000;
+}
+
 struct point {
 	db x;
 	db y;
@@ -17,10 +21,10 @@ struct point {
 		return point(x - p.x, y - p.y);
 	}
 	bool operator== (point p) {
-		return ((x == p.x) && (y == p.y));
+		return ((rou(x) == rou(p.x)) && (rou(y) == rou(p.y)));
 	}
 	bool operator<= (point p) {
-		return ((x <= p.x) && (y <= p.y));
+		return ((rou(x) <= rou(p.x)) && (rou(y) <= rou(p.y));
 	}
 	point operator+ (point p) {
 		return point(p.x + x, p.y + y);
@@ -258,7 +262,7 @@ int main() {
 	if ((s1.point_in(ans) && s2.point_in(ans)) ||
 	((line(s1) == line(s2)) && (s2.point_in(s1.a) || s1.point_in(s2.a) || s1.point_in(s2.b) ||
 	s2.point_in(s1.b))) || ((s1.a == s1.b) && s2.point_in(s1.a) && line(s2).point_in(s1.a)) ||
-	((s2.a == s2.b) && s1.point_in(s2.a) && line(s1).point_in(s2.a))) {
+	((s2.a == s2.b) && s1.point_in(s2.a) && line(s1).point_in(s2.a)) || ((s1.a == s1.b) && (s2.a == s2.b) && (s1.a == s2.a))) {
 		cout << "YES";
 	} else {
 		cout << "NO";
