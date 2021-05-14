@@ -1,5 +1,8 @@
 int main() {
-	for (int i = 0; i < 100000000000000; i++) {
-		new int(0);
+	while (true) {
+		try {
+			new int(0);
+		} catch (int a) {
+		}
 	}
 }
