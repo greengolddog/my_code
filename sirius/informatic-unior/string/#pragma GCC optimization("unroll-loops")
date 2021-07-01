@@ -1,0 +1,4 @@
+#pragma GCC optimization("unroll-loops")
+#pragma GCC optimization("no-stack-protector")
+#pragma GCC optimization("O3")
+#pragma GCC target("avx,avx2,sse,sse2,sse3,ssse3,sse4,abm,popcnt,tune=native")

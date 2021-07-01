@@ -1,0 +1,41 @@
+def bubble_sort2(a):
+    stc = 0
+    n = len(a)
+    unordered = True
+    while unordered:
+        unordered = False
+        for j in range(n - 1):
+            if a[j] > a[j + 1]:
+                stc += 1
+                a[j], a[j + 1] = a[j + 1], a[j]
+                unordered = True
+        n -= 1
+    return stc
+
+def bubble_sort(a):
+    c = 0
+    n = len(a)
+    unordered = True
+    while unordered:
+        unordered = False
+        for j in range(n - 1):
+            if a[j] > a[j + 1]:
+                if (maxx-k == c):
+                    return
+                c += 1
+                a[j], a[j + 1] = a[j + 1], a[j]
+                unordered = True
+        n -= 1
+
+inp = input().split()
+nn = int(inp[0])
+k = int(inp[1])
+maxx = 0
+arr = []
+arr2 = []
+for i in range(nn):
+    arr.append(nn-i) 
+    arr2.append(nn-i)
+maxx = bubble_sort2(arr2)
+bubble_sort(arr)
+print(*arr)

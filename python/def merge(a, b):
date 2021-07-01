@@ -1,0 +1,9 @@
+def summ(n):
+    ans = 0
+    for i in str(n):
+        ans += int(i)
+    return ans
+input()
+arr = list(map(int, input().split()))
+arr.sort(key = summ, reverse = True)
+print(*arr)

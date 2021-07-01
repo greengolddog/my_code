@@ -1,0 +1,8 @@
+3
+Florida 5
+Pennsylvania 4
+Alaska 3
+Florida Gore
+Pennsylvania Obama
+Pennsylvania Clinton
+Alaska Bush

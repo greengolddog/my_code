@@ -1,0 +1,32 @@
+inp = input().split()
+l = int(inp[0])
+n = int(inp[1])
+m = int(inp[2])
+arrp = []
+arrm = []
+for i in range(l):
+    arrp.append(0)
+    arrm.append(0)
+for i in range(n):
+    inp = input().split()
+    ll = int(inp[0])
+    r = int(inp[1])
+    arrp[ll-1] += 1
+    arrm[r-1] += 1
+ans = []
+z = []
+for i in range(m):
+    inp = int(input())
+    ans.append(-1)
+    z.append([inp-1, i])
+z.sort()
+uk = 0
+otv = 0
+for i in range(l):
+    otv += arrp[i]
+    while ((uk != len(z)) and (z[uk][0] == i)):
+        ans[z[uk][1]] = otv
+        uk += 1
+    otv -= arrm[i]
+for i in ans:
+    print(i)
