@@ -1,6 +1,5 @@
 #include <bits/stdc++.h>
-#define ll int64_t
-#define elif else if
+typedef long long ll;
 
 using namespace std;
 
@@ -24,6 +23,8 @@ void rec(vector<ll>& arr, ll x, vector<vector<ll>>& gr) {
 }
 
 int main() {
+	freopen("retro.in", "r", stdin);
+	freopen("retro.out", "w", stdout);
     	ios_base::sync_with_stdio(false);
     	cin.tie(0);
     	cout.tie(0);
@@ -50,6 +51,5 @@ int main() {
 		for (ll i = 0; i < n; i++) {
 			cout << ((arr[i] == -1) ? "FIRST" : ((arr[i] == 0) ? "SECOND" : "DRAW")) << "\n";
 		}
-		cout << "\n";
 	}
 }
