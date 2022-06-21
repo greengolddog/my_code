@@ -1,0 +1,11 @@
+Started in 2022/06/21 18:05:30
+java.lang.NullPointerException
+	at com.company.Codeforces.login(Codeforces.java:36)
+	at com.company.Codeforces.load_testCases(Codeforces.java:66)
+	at com.company.Problem_Input_Output.lambda$load_testCases$4(Problem_Input_Output.java:156)
+	at java.lang.Thread.run(Thread.java:750)
+java.lang.NullPointerException
+	at com.company.Codeforces.login(Codeforces.java:36)
+	at com.company.Codeforces.submit(Codeforces.java:102)
+	at com.company.Problem_Input_Output.lambda$submit$3(Problem_Input_Output.java:133)
+	at java.lang.Thread.run(Thread.java:750)

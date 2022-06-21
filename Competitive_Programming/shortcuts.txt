@@ -1,0 +1,10 @@
+F5  ->  Run the testcases. This shortcut do click on the run button
+F1  ->  Open the problem setter window. You will need this window to submit your soultion, save your solution and load test cases of the problem page
+ctrl+R  -> Clean the program. This will clean all the test cases and the output window
+ctrl+B  -> This will stop the codes that running in the backgound like the infinty loop codes.
+alt+O  -> clean output window. This will clean the output window only and remove any text in it.
+ctrl+mouse_wheel: Change the size of fonts (wheel up increases the font size and wheel down decreases font size)
+ctrl+shift+R  -> Restart the program. 
+ctrl+D  -> Reset the driver. This will restart the drivers used in the program that submit your results and get the problem test cases. using this action will make the driver relogin in to your accounts. You can 		   use this if there is an error occured in your submition or login. 
+ctrl+N  -> Add new test case. This will add only on test case.
+
